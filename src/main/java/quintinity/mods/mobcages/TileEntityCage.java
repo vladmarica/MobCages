@@ -1,13 +1,16 @@
 package quintinity.mods.mobcages;
+
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import cpw.mods.fml.relauncher.Side;
 
 public class TileEntityCage extends TileEntity 
 {
@@ -27,7 +30,7 @@ public class TileEntityCage extends TileEntity
 	public boolean releaseEntity(int x, int y, int z)
 	{
 		if (hasEntity) {
-			EntityLiving entity = (EntityLiving) EntityList.createEntityByName(entityID, getWorld());
+			EntityLiving entity = (EntityLiving) EntityList.createEntityByName(entityID, worldObj);
 			entity.setHealth(entityHealth);
 			entity.setPosition(x + 0.5, y + 1, z + 0.5);
 			worldObj.spawnEntityInWorld(entity);
@@ -37,18 +40,17 @@ public class TileEntityCage extends TileEntity
 		return false;
 	}
 	
-	public void onPlaced(int x, int y, int z, EntityLiving entity)
+	public void onPlaced(int x, int y, int z, EntityLivingBase entity)
 	{
 		entityID = EntityList.getEntityString(entity);
 		hasEntity = true;
 		entityHealth = entity.getHealth();
-		getWorld().markBlockForUpdate(x, y, z);
+		worldObj.markBlockForUpdate(x, y, z);
 	}
 	
 	public void handleBreaking(int x, int y, int z)
 	{
-		/*
-		ItemStack stack = new ItemStack(MobCages.mobCageItem);
+		ItemStack stack = new ItemStack(MobCages.cageItem);
 		NBTTagCompound tag = new NBTTagCompound();
 		tag.setString("EntityString", entityID);
         tag.setBoolean("HasEntity", hasEntity);
@@ -56,22 +58,21 @@ public class TileEntityCage extends TileEntity
 		stack.setTagCompound(tag);
 		EntityItem item = new EntityItem(getWorld(), x + 0.5, y + 1, z + 0.5, stack);
 		worldObj.spawnEntityInWorld(item);
-		*/
 	}
 	
-	/*
+	@Override
 	public Packet getDescriptionPacket()
-	{
+    {
 		NBTTagCompound tag = new NBTTagCompound();
         this.writeToNBT(tag);
-        return new Packet132TileEntityData(this.xCoord, this.yCoord, this.zCoord, -1, tag);
-	}
-	
-    public void onDataPacket(INetworkManager net, Packet132TileEntityData pkt)
-    {
-    	this.readFromNBT(pkt.customParam1);
+        return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, tag);
     }
-    */
+	
+	@Override
+	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt)
+    {
+		this.readFromNBT(pkt.func_148857_g());
+    }
     
 	@Override
 	public void readFromNBT(NBTTagCompound tagCompound)
