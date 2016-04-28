@@ -17,8 +17,10 @@ public class ItemCage extends Item
 {
 	public ItemCage() 
 	{
+		super();
 		this.setUnlocalizedName("cageitem");
-		setCreativeTab(CreativeTabs.tabMisc);
+		this.setTextureName(MobCages.MODID + ":empty");
+		this.setCreativeTab(CreativeTabs.tabMisc);
 	}
 	
     public boolean itemInteractionForEntity(ItemStack item, EntityPlayer player, EntityLivingBase entity)
@@ -36,10 +38,6 @@ public class ItemCage extends Item
         	item.stackSize--;
     	}
     	
-    	/*
-    	else if (MobCages.getWorldType(entity.worldObj) == Side.CLIENT && entity instanceof EntityAnimal) {
-    		//entity.worldObj
-    	}*/
         return true;
     }
     
@@ -51,7 +49,7 @@ public class ItemCage extends Item
 	    	if (tile != null) {
 	    		tile.entityID = stack.getTagCompound().getString("EntityString");
 	    		tile.hasEntity = stack.getTagCompound().getBoolean("HasEntity");
-	    		tile.entityHealth = stack.getTagCompound().getInteger("EntityHealth");
+	    		tile.entityHealth = stack.getTagCompound().getFloat("EntityHealth");
 	    		world.markBlockForUpdate(x, y + 1, z);
 	    	}
     	}
@@ -66,7 +64,11 @@ public class ItemCage extends Item
     		NBTTagCompound tag = item.getTagCompound();
     		if (tag.getBoolean("HasEntity")) {
     			list.add("\u00a79" + tag.getString("EntityString"));
+    			list.add("Health: \u00a74" + tag.getFloat("EntityHealth"));
     		}
+    	}
+    	else {
+    		list.add("Empty");
     	}
     }
 }

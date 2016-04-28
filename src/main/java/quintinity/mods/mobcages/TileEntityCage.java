@@ -51,11 +51,13 @@ public class TileEntityCage extends TileEntity
 	public void handleBreaking(int x, int y, int z)
 	{
 		ItemStack stack = new ItemStack(MobCages.cageItem);
-		NBTTagCompound tag = new NBTTagCompound();
-		tag.setString("EntityString", entityID);
-        tag.setBoolean("HasEntity", hasEntity);
-        tag.setFloat("EntityHealth", entityHealth);
-		stack.setTagCompound(tag);
+		if (hasEntity) {
+			NBTTagCompound tag = new NBTTagCompound();
+			tag.setString("EntityString", entityID);
+	        tag.setBoolean("HasEntity", hasEntity);
+	        tag.setFloat("EntityHealth", entityHealth);
+			stack.setTagCompound(tag);
+		}
 		EntityItem item = new EntityItem(getWorld(), x + 0.5, y + 1, z + 0.5, stack);
 		worldObj.spawnEntityInWorld(item);
 	}
@@ -80,7 +82,7 @@ public class TileEntityCage extends TileEntity
 		super.readFromNBT(tagCompound);
         entityID = tagCompound.getString("EntityString");
         hasEntity = tagCompound.getBoolean("HasEntity");
-        entityHealth = tagCompound.getInteger("EntityHealth");
+        entityHealth = tagCompound.getFloat("EntityHealth");
     }
 	
 	@Override

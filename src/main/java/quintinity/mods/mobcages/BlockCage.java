@@ -24,6 +24,7 @@ public class BlockCage extends BlockContainer
 		this.setResistance(10.0F);
 		this.setStepSound(soundTypeWood);
 		this.setBlockName("cage");
+		this.setBlockTextureName(MobCages.MODID + ":empty");
 		this.setResistance(30F);
 	}
 	

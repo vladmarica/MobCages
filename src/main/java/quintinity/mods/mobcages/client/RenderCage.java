@@ -22,6 +22,7 @@ import cpw.mods.fml.client.FMLClientHandler;
 
 public class RenderCage extends TileEntitySpecialRenderer
 {
+	public ResourceLocation texture;
 	public TextureManager engine;
 	public float defaultThickness = 0.0625F;
 	public EntityLiving clientEntity;
@@ -29,19 +30,16 @@ public class RenderCage extends TileEntitySpecialRenderer
 	
 	public RenderCage()
 	{
-		engine = Minecraft.getMinecraft().renderEngine;
+		texture = new ResourceLocation(MobCages.MODID, "textures/items/textures.png");
 	}
 
 	public void renderFrame(double x, double y, double z, float var8, boolean forInv)
 	{
 		engine = Minecraft.getMinecraft().renderEngine;
+		
 		GL11.glPushMatrix();
 	    GL11.glTranslated(x, y, z);
-
 	    
-	    ResourceLocation texture = new ResourceLocation(MobCages.MODID, "textures/items/textures.png");
-	    System.out.println("Engine not null: " + (engine != null));
-	    System.out.println("Texture not null: " + (texture != null));
 	    engine.bindTexture(texture);
 	     
 	    GL11.glRotatef(90F, 1F, 0F, 0F);
