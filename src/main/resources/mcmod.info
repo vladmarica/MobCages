@@ -1,0 +1,15 @@
+[
+{
+  "modid": "mobcages",
+  "name": "Mob Cages",
+  "description": "Adds craftable cages so you can trap and carry mobs around.",
+  "version": "1.0",
+  "mcversion": "1.7.10",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Quintinity"],
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
