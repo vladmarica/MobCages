@@ -26,6 +26,7 @@ public class RenderCage extends TileEntitySpecialRenderer
 	public TextureManager engine;
 	public float defaultThickness = 0.0625F;
 	public EntityLiving clientEntity;
+	
 	public static HashMap<String, EntityLiving> entities = new HashMap<String, EntityLiving>();
 	
 	public RenderCage()
@@ -96,10 +97,10 @@ public class RenderCage extends TileEntitySpecialRenderer
         ItemRenderer.renderItemIn2D(tess, var10, var11, var9, var12, 256, 256, thickness); 
 	}
 	
-	public EntityLiving getEntity(String entityID, World world)
+	public EntityLiving getEntity(String entityID)
 	{
 		if (!entities.containsKey(entityID)) {
-			EntityLiving entity = (EntityLiving)EntityList.createEntityByName(entityID, world);
+			EntityLiving entity = (EntityLiving)EntityList.createEntityByName(entityID, Minecraft.getMinecraft().theWorld);
 			entities.put(entityID, entity);
 		}
 		return entities.get(entityID);
@@ -111,7 +112,7 @@ public class RenderCage extends TileEntitySpecialRenderer
 		TileEntityCage cage = (TileEntityCage)tile;
 		renderFrame(x, y, z, var8, false);
 		if (cage.hasEntity) {
-			EntityLiving entity = getEntity(cage.entityID, cage.getWorldObj());
+			EntityLiving entity = getEntity(cage.entityID);
 			renderEntity(entity, x, y, z);
 		}
 	}
