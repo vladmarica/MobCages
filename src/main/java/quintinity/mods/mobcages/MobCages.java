@@ -38,6 +38,7 @@ public class MobCages
     	GameRegistry.registerItem(crowbar, "crowbar");
     	GameRegistry.addRecipe(new ItemStack(crowbar), "X X", "XXX", " X ", 'X', Items.iron_ingot);
     	GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(crowbar), "X X", "XXX", " X ", 'X', "ingotIron"));
+    	GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(crowbar), "X X", "XXX", " X ", 'X', "ingotTin"));
     	
     	cageItem = new ItemCage();
     	GameRegistry.registerItem(cageItem, "cageitem");
