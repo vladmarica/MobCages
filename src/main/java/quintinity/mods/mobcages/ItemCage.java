@@ -6,6 +6,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -43,18 +44,47 @@ public class ItemCage extends Item
     
     public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
 	{
-    	world.setBlock(x, y + 1, z, MobCages.cage);
-    	if (stack.hasTagCompound()) {
-	    	TileEntityCage tile = (TileEntityCage) world.getTileEntity(x, y + 1, z);
-	    	if (tile != null) {
-	    		tile.entityID = stack.getTagCompound().getString("EntityString");
-	    		tile.hasEntity = stack.getTagCompound().getBoolean("HasEntity");
-	    		tile.entityHealth = stack.getTagCompound().getFloat("EntityHealth");
-	    		world.markBlockForUpdate(x, y + 1, z);
-	    	}
+    	int placeX = x;
+    	int placeY = y;
+    	int placeZ = z;
+    		
+    	if(side == 0) {
+    		placeY--;
     	}
-    	stack.stackSize--;
-    	return true;
+    	else if(side == 1) {
+    		placeY++;
+    	}
+    	else if(side == 2) {
+    		placeZ--;
+    	}
+    	else if(side == 3) {
+    		placeZ++;
+    	}
+    	else if(side == 4) {
+    		placeX--;
+    	}
+    	else if(side == 5) {
+    		placeX++;
+    	}
+    	
+    	if (world.getBlock(placeX, placeY, placeZ) == Blocks.air) {
+	    	world.setBlock(placeX, placeY, placeZ, MobCages.cage);
+	    	if (stack.hasTagCompound()) {
+		    	TileEntityCage tile = (TileEntityCage) world.getTileEntity(placeX, placeY, placeZ);
+		    	if (tile != null) {
+		    		tile.entityID = stack.getTagCompound().getString("EntityString");
+		    		tile.hasEntity = stack.getTagCompound().getBoolean("HasEntity");
+		    		tile.entityHealth = stack.getTagCompound().getFloat("EntityHealth");
+		    		world.markBlockForUpdate(placeX, placeY, placeZ);
+		    	}
+	    	}
+	    	stack.stackSize--;
+	    	return true;
+    	}
+    	
+    	return false;
+
+    	
 	}
     
     
