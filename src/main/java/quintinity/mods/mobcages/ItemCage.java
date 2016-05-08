@@ -1,5 +1,6 @@
 package quintinity.mods.mobcages;
 
+import java.util.HashMap;
 import java.util.List;
 
 import net.minecraft.creativetab.CreativeTabs;
@@ -12,10 +13,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
-import cpw.mods.fml.relauncher.Side;
 
 public class ItemCage extends Item
 {
+	public static HashMap<String, String> nameMap = new HashMap<String, String>();
+	static 
+	{
+		nameMap.put("EntityHorse", "Horse");
+		nameMap.put("Ozelot", "Ocelot");
+		nameMap.put("MushroomCow", "Mooshroom");
+	}
+	
 	public ItemCage() 
 	{
 		super();
@@ -30,9 +38,9 @@ public class ItemCage extends Item
     	if (entity.worldObj instanceof WorldServer && entity instanceof EntityAnimal) {
     		entity.writeToNBT(entityData);
     		entity.setDead();
-    		int x = (int)entity.posX;
-    		int y = (int)entity.posY;
-    		int z = (int)entity.posZ;
+    		int x = (int)Math.round(entity.posX);
+    		int y = (int)Math.round(entity.posY);
+    		int z = (int)Math.round(entity.posZ);
     		entity.worldObj.setBlock(x, y, z, MobCages.cage);
     		TileEntityCage tile = (TileEntityCage)entity.worldObj.getTileEntity(x, y, z);
     		tile.onPlaced(x, y, z, entity);
@@ -82,18 +90,19 @@ public class ItemCage extends Item
 	    	return true;
     	}
     	
-    	return false;
-
-    	
+    	return false; 	
 	}
-    
     
     public void addInformation(ItemStack item, EntityPlayer player, List list, boolean par4) 
     {
     	if (item.hasTagCompound()) {
     		NBTTagCompound tag = item.getTagCompound();
     		if (tag.getBoolean("HasEntity")) {
-    			list.add("\u00a79" + tag.getString("EntityString"));
+    			String entityString = tag.getString("EntityString");
+    			if (nameMap.containsKey(entityString)) {
+    				entityString = nameMap.get(entityString);
+    			}
+    			list.add("\u00a79" + entityString);
     			list.add("Health: \u00a74" + tag.getFloat("EntityHealth"));
     		}
     	}
