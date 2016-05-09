@@ -10,15 +10,14 @@ import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
 
 import org.lwjgl.opengl.GL11;
 
 import quintinity.mods.mobcages.MobCages;
 import quintinity.mods.mobcages.TileEntityCage;
-import cpw.mods.fml.client.FMLClientHandler;
 
 public class RenderCage extends TileEntitySpecialRenderer
 {
@@ -97,12 +96,14 @@ public class RenderCage extends TileEntitySpecialRenderer
         ItemRenderer.renderItemIn2D(tess, var10, var11, var9, var12, 256, 256, thickness); 
 	}
 	
-	public EntityLiving getEntity(String entityID)
+	public EntityLiving getEntity(String entityID, NBTTagCompound entityData)
 	{
 		if (!entities.containsKey(entityID)) {
 			EntityLiving entity = (EntityLiving)EntityList.createEntityByName(entityID, Minecraft.getMinecraft().theWorld);
 			entities.put(entityID, entity);
 		}
+		EntityLiving entity = entities.get(entityID);
+		entity.readEntityFromNBT(entityData);
 		return entities.get(entityID);
 	}
 	
@@ -112,7 +113,7 @@ public class RenderCage extends TileEntitySpecialRenderer
 		TileEntityCage cage = (TileEntityCage)tile;
 		renderFrame(x, y, z, var8, false);
 		if (cage.hasEntity) {
-			EntityLiving entity = getEntity(cage.entityID);
+			EntityLiving entity = getEntity(cage.entityID, cage.entityData);
 			renderEntity(entity, x, y, z);
 		}
 	}

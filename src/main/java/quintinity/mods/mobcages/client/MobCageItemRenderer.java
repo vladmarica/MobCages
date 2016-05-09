@@ -43,7 +43,7 @@ public class MobCageItemRenderer implements IItemRenderer
 			cage.renderFrame(0, 0, 0, 0, false);
 			if (item.hasTagCompound()) {
 				NBTTagCompound tag = item.getTagCompound();
-				EntityLiving entity = cage.getEntity(tag.getString("EntityString"));
+				EntityLiving entity = cage.getEntity(tag.getString("EntityString"), tag.getCompoundTag("EntityData"));
 				cage.renderEntity(entity, 0, 0, 0);
 			}
 		}

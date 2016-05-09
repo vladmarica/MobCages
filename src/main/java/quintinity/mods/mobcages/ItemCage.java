@@ -34,9 +34,7 @@ public class ItemCage extends Item
 	
     public boolean itemInteractionForEntity(ItemStack item, EntityPlayer player, EntityLivingBase entity)
     {
-    	NBTTagCompound entityData = new NBTTagCompound();
     	if (entity.worldObj instanceof WorldServer && entity instanceof EntityAnimal) {
-    		entity.writeToNBT(entityData);
     		entity.setDead();
     		int x = (int)Math.round(entity.posX);
     		int y = (int)Math.round(entity.posY);

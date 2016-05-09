@@ -17,10 +17,9 @@ public class TileEntityCage extends TileEntity
 	public String entityID = "";
 	public float entityHealth = 0;
 	public boolean hasEntity = false;
+	public NBTTagCompound entityData;
 	
-	public TileEntityCage()
-	{
-	}
+	public TileEntityCage() {}
 	
 	@Override
 	public void updateEntity() 
@@ -33,6 +32,11 @@ public class TileEntityCage extends TileEntity
 			EntityLiving entity = (EntityLiving) EntityList.createEntityByName(entityID, worldObj);
 			entity.setHealth(entityHealth);
 			entity.setPosition(x + 0.5, y + 1, z + 0.5);
+			
+			if (entityData != null) {
+				entity.readEntityFromNBT(entityData);
+			}
+			
 			worldObj.spawnEntityInWorld(entity);
 			worldObj.setBlockToAir(x, y, z);
 			return true;
@@ -45,6 +49,9 @@ public class TileEntityCage extends TileEntity
 		entityID = EntityList.getEntityString(entity);
 		hasEntity = true;
 		entityHealth = entity.getHealth();
+		entityData = new NBTTagCompound();
+		entity.writeEntityToNBT(entityData);
+		
 		worldObj.markBlockForUpdate(x, y, z);
 	}
 	
@@ -56,6 +63,7 @@ public class TileEntityCage extends TileEntity
 			tag.setString("EntityString", entityID);
 	        tag.setBoolean("HasEntity", hasEntity);
 	        tag.setFloat("EntityHealth", entityHealth);
+	        tag.setTag("EntityData", entityData);
 			stack.setTagCompound(tag);
 		}
 		EntityItem item = new EntityItem(getWorld(), x + 0.5, y + 1, z + 0.5, stack);
@@ -83,6 +91,7 @@ public class TileEntityCage extends TileEntity
         entityID = tagCompound.getString("EntityString");
         hasEntity = tagCompound.getBoolean("HasEntity");
         entityHealth = tagCompound.getFloat("EntityHealth");
+        entityData = tagCompound.getCompoundTag("EntityData");
     }
 	
 	@Override
@@ -92,6 +101,7 @@ public class TileEntityCage extends TileEntity
         tagCompound.setString("EntityString", entityID);
         tagCompound.setBoolean("HasEntity", hasEntity);
         tagCompound.setFloat("EntityHealth", entityHealth);
+        tagCompound.setTag("EntityData", entityData);
     }
 	
 	public World getWorld()
