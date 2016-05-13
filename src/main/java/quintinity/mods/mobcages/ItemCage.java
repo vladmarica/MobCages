@@ -81,6 +81,7 @@ public class ItemCage extends Item
 		    		tile.entityID = stack.getTagCompound().getString("EntityString");
 		    		tile.hasEntity = stack.getTagCompound().getBoolean("HasEntity");
 		    		tile.entityHealth = stack.getTagCompound().getFloat("EntityHealth");
+		    		tile.entityData = stack.getTagCompound().getCompoundTag("EntityData");
 		    		world.markBlockForUpdate(placeX, placeY, placeZ);
 		    	}
 	    	}

@@ -103,7 +103,9 @@ public class RenderCage extends TileEntitySpecialRenderer
 			entities.put(entityID, entity);
 		}
 		EntityLiving entity = entities.get(entityID);
-		entity.readEntityFromNBT(entityData);
+		if (entityData != null) {
+			entity.readEntityFromNBT(entityData);
+		}
 		return entities.get(entityID);
 	}
 	
