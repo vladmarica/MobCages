@@ -24,6 +24,7 @@ public class TileEntityCage extends TileEntity
 	
 	public TileEntityCage() {}
 	
+	//called to release the entity from this cage
 	public boolean releaseEntity(int x, int y, int z)
 	{
 		if (hasEntity) {
