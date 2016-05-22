@@ -32,9 +32,11 @@ public class ItemCage extends Item
 		this.setCreativeTab(CreativeTabs.tabMisc);
 	}
 	
+	/*	Called when a player right-clicks on an entity with a cage. */
     public boolean itemInteractionForEntity(ItemStack item, EntityPlayer player, EntityLivingBase entity)
     {
-    	if (entity.worldObj instanceof WorldServer && entity instanceof EntityAnimal) {
+    	//We only want to do anything if the cage is empty, the entity is an alive animal, and we are on the server
+    	if (!item.hasTagCompound() && entity.worldObj instanceof WorldServer && entity.isEntityAlive() && entity instanceof EntityAnimal) {
     		entity.setDead();
     		int x = (int)Math.round(entity.posX);
     		int y = (int)Math.round(entity.posY);
@@ -48,12 +50,17 @@ public class ItemCage extends Item
         return true;
     }
     
+    /* 
+     * Called when a player right-clicks with this item on the ground
+     * Returns weather or not placing a cage at the given coordinates was successful
+     */
     public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
 	{
     	int placeX = x;
     	int placeY = y;
     	int placeZ = z;
     		
+    	//figure out where the cage should be placed based on the side that was right-clicked
     	if(side == 0) {
     		placeY--;
     	}
