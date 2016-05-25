@@ -1,4 +1,8 @@
-#MobCages
-# ![Image](http://i.imgur.com/p88wDEB.png) 
+![Image](http://i.imgur.com/KZbbOSM.png) 
 
-A Minecraft mod designed to ease the storage and transport of animals.
+### Information
+This is a [Minecraft](https://minecraft.net/en/) mod designed to ease the storage and transport of animals. See the [**project page**](http://minecraft.curseforge.com/projects/mobcages) on CurseForge for more information and download links.
+
+### Requirements 
+* Minecraft 1.7.10
+* Minecraft Forge 10.13.4.* *(any Forge version for 1.7.10 should work)*
