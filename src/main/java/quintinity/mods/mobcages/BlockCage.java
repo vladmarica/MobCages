@@ -32,24 +32,25 @@ public class BlockCage extends BlockContainer
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
 	{
-		if (world instanceof WorldServer) {
-			System.out.println("Right click on cage!");
+		TileEntityCage tile = (TileEntityCage)world.getTileEntity(x, y, z);
+		if (tile == null || !tile.hasEntity) {
+			return false;
+		}
 			
-			TileEntityCage tile = (TileEntityCage)world.getTileEntity(x, y, z);
-			if (tile == null) {
-				return false;
-			}
+		ItemStack heldItemStack = player.getCurrentEquippedItem();
+		if (heldItemStack == null) {
+			return false;
+		}
+		Item heldItem = heldItemStack.getItem();
 			
-			ItemStack heldItemStack = player.getCurrentEquippedItem();
-			Item heldItem = heldItemStack.getItem();
-			
-			if (heldItem == MobCages.crowbar) {
-				((ItemCrowbar)heldItem).usedOnCage(heldItemStack, player, x, y, z);
-				return tile.releaseEntity(x, y, z);
-			}
-			else if (Integration.useWrench(heldItemStack, player, x, y, z)) {
-				return tile.releaseEntity(x, y, z);
-			}
+		if (heldItem == MobCages.crowbar) {
+			((ItemCrowbar)heldItem).usedOnCage(heldItemStack, player, world, x, y, z);
+			if (world instanceof WorldServer)
+				return tile.releaseEntity(x, y, z) ;
+			return true;
+		}
+		else if (Integration.useWrench(heldItemStack, player, x, y, z) && world instanceof WorldServer) {
+			return tile.releaseEntity(x, y, z);
 		}
 		
 		return false;

@@ -20,8 +20,9 @@ public class ItemCrowbar extends Item
 		this.setMaxStackSize(1);
 	}
 	
-	public void usedOnCage(ItemStack stack, EntityPlayer player, int x, int y, int z)
+	public void usedOnCage(ItemStack stack, EntityPlayer player, World world, int x, int y, int z)
 	{
 		stack.damageItem(1, player);
+		player.swingItem();
 	}
 }
