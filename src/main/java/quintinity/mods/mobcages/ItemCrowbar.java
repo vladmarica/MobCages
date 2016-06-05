@@ -20,17 +20,8 @@ public class ItemCrowbar extends Item
 		this.setMaxStackSize(1);
 	}
 	
-	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
+	public void usedOnCage(ItemStack stack, EntityPlayer player, int x, int y, int z)
 	{
-		if (world instanceof WorldServer) {
-    		if (world.getBlock(x, y, z) == MobCages.cage) {
-    			TileEntityCage tile = (TileEntityCage) world.getTileEntity(x, y, z);
-    			if (tile != null && tile.releaseEntity(x, y, z)) {
-    				stack.damageItem(1, player);
-    			}
-    	    	return true;
-    		}
-    	}
-    	return false;
+		stack.damageItem(1, player);
 	}
 }

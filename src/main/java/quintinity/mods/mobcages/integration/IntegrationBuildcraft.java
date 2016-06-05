@@ -7,7 +7,7 @@ import cpw.mods.fml.common.Optional;
 public class IntegrationBuildcraft extends Integration 
 {
 	@Override
-	@Optional.Method(modid = "Buildcraft|Core")
+	@Optional.Method(modid = "BuildCraft|Core")
 	public boolean isWrench(ItemStack itemstack, EntityPlayer player, int x, int y, int z) 
 	{
 		if (itemstack.getItem() instanceof IToolWrench) {
@@ -18,7 +18,7 @@ public class IntegrationBuildcraft extends Integration
 	}
 	
 	@Override
-	@Optional.Method(modid = "Buildcraft|Core")
+	@Optional.Method(modid = "BuildCraft|Core")
 	public void doWrenchRightClick(ItemStack item, EntityPlayer player, int x, int y, int z) 
 	{
 		((IToolWrench)item.getItem()).wrenchUsed(player, x, y, z);
