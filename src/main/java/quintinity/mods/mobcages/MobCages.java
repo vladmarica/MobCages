@@ -1,4 +1,5 @@
 package quintinity.mods.mobcages;
+import quintinity.mods.mobcages.integration.*;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -33,6 +34,8 @@ public class MobCages
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
+    	Integration.register(new IntegrationBuildcraft());
+    	
     	GameRegistry.registerFuelHandler(new FuelHandler());
     	
     	crowbar = new ItemCrowbar();
