@@ -35,6 +35,7 @@ public class MobCages
     public void preInit(FMLPreInitializationEvent event)
     {
     	Integration.register(new IntegrationBuildcraft());
+    	Integration.register(new IntegrationIC2());
     	
     	GameRegistry.registerFuelHandler(new FuelHandler());
     	
