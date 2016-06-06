@@ -1,29 +1,25 @@
 package quintinity.mods.mobcages.integration;
 
-import ic2.core.item.tool.ItemToolWrench;
+import forestry.core.items.ItemWrench;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.Optional;
 
-public class IntegrationIC2 extends Integration
+public class IntegrationForestry extends Integration
 {
 	@Override
-	@Optional.Method(modid = "IC2")
+	@Optional.Method(modid = "Forestry")
 	public boolean isWrench(ItemStack itemstack, EntityPlayer player, int x, int y, int z) 
 	{
-		Item item = itemstack.getItem();
-		if (item instanceof ItemToolWrench) {
-			return ((ItemToolWrench)item).canTakeDamage(itemstack, 1);
-		}
-		return false;
+		return itemstack.getItem() instanceof ItemWrench;
 	}
 	
 	@Override
-	@Optional.Method(modid = "IC2")
+	@Optional.Method(modid = "Forestry")
 	public void doWrenchRightClick(ItemStack itemstack, EntityPlayer player, int x, int y, int z) 
 	{
-		((ItemToolWrench)itemstack.getItem()).damage(itemstack, 1, player);
+		((ItemWrench)itemstack.getItem()).wrenchUsed(player, x, y, z);
 		player.swingItem();
 	}
 }

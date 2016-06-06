@@ -25,12 +25,12 @@ public abstract class Integration
 	}
 	
 	
-	public boolean isWrench(ItemStack item, EntityPlayer player, int x, int y, int z) 
+	public boolean isWrench(ItemStack itemstack, EntityPlayer player, int x, int y, int z) 
 	{
 		return false;
 	}
 	
-	public void doWrenchRightClick(ItemStack item, EntityPlayer player, int x, int y, int z) 
+	public void doWrenchRightClick(ItemStack itemstack, EntityPlayer player, int x, int y, int z) 
 	{
 	}
 }

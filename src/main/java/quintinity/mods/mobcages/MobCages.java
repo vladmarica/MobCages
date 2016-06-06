@@ -34,6 +34,7 @@ public class MobCages
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
+    	Integration.register(new IntegrationForestry());
     	Integration.register(new IntegrationBuildcraft());
     	Integration.register(new IntegrationIC2());
     	
