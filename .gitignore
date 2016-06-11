@@ -1,5 +1,4 @@
 *.class
-*.gradle
 .classpath
 .project
 /.gradle
