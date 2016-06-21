@@ -38,6 +38,7 @@ public class MobCages
     	Integration.register(new IntegrationBuildcraft());
     	Integration.register(new IntegrationIC2());
     	Integration.register(new IntegrationTE());
+    	Integration.register(new IntegrationEnderIO());
     	
     	GameRegistry.registerFuelHandler(new FuelHandler());
     	
