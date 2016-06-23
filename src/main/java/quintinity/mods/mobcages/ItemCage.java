@@ -39,8 +39,27 @@ public class ItemCage extends Item
     	if (!item.hasTagCompound() && entity.worldObj instanceof WorldServer && entity.isEntityAlive() && entity instanceof EntityAnimal) {
     		entity.setDead();
     		int x = (int)Math.round(entity.posX);
-    		int y = (int)Math.round(entity.posY);
+    		int y = (int)entity.posY;
     		int z = (int)Math.round(entity.posZ);
+    		
+    		//find an opening to place the cage
+    		if (!(entity.worldObj.getBlock(x, y, z) == Blocks.air)) {
+    			boolean found = false;
+    			
+    			for (int x1 = x - 1; x1 <= x + 1; x1++) {
+    				if (found) break;
+    				
+    				for (int z1 = z - 1; z1 <= z + 1; z1++) {
+    					if (entity.worldObj.getBlock(x1, y, z1) == Blocks.air) {
+    						found = true;
+    						x = x1;
+    						z = z1;
+    						break;
+    					}
+        			}
+    			}
+    		}
+    		
     		entity.worldObj.setBlock(x, y, z, MobCages.cage);
     		TileEntityCage tile = (TileEntityCage)entity.worldObj.getTileEntity(x, y, z);
     		tile.onPlaced(x, y, z, entity);
