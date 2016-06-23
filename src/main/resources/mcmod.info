@@ -4,7 +4,7 @@
   "name": "MobCages",
   "description": "Adds craftable cages so you can trap and carry mobs around.",
   "logoFile": "assets/mobcages/logo.png",
-  "version": "1.1",
+  "version": "1.2",
   "mcversion": "1.7.10",
   "url": "https://github.com/Quintinity/MobCages",
   "updateUrl": "",
