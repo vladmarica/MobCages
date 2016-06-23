@@ -73,12 +73,14 @@ public class RenderCage extends TileEntitySpecialRenderer
 	
 	public void renderEntity(EntityLiving entity, double x, double y, double z)
 	{
-		GL11.glPushMatrix();
-		GL11.glTranslated(x, y, z);
-		GL11.glScalef(0.5F, 0.5F, 0.5F);
-		GL11.glTranslatef(1F, 0F, 0.9F);
-		RenderManager.instance.renderEntityWithPosYaw(entity, 0, 0, 0, 0, 0);
-		GL11.glPopMatrix();
+		if (entity != null) {
+			GL11.glPushMatrix();
+			GL11.glTranslated(x, y, z);
+			GL11.glScalef(0.5F, 0.5F, 0.5F);
+			GL11.glTranslatef(1F, 0F, 0.9F);
+			RenderManager.instance.renderEntityWithPosYaw(entity, 0, 0, 0, 0, 0);
+			GL11.glPopMatrix();
+		}
 	}
 	
 	public void render3DTexture(int index)
@@ -103,10 +105,10 @@ public class RenderCage extends TileEntitySpecialRenderer
 			entities.put(entityID, entity);
 		}
 		EntityLiving entity = entities.get(entityID);
-		if (entityData != null) {
+		if (entityData != null && entity != null) {
 			entity.readEntityFromNBT(entityData);
 		}
-		return entities.get(entityID);
+		return entity;
 	}
 	
 	@Override
